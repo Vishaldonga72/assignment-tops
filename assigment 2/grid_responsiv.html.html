@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Reddit+Mono:wght@200..900&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: repeat(2,1fr);
+            gap: 25px;
+            height: 600px;
+            width: 100%;
+        }
+        .box{
+            border: 2px solid black;
+        }
+        .box .bgimg{
+            background-color: black;
+            width: 100%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 0; 
+            font-size: 40px;
+            font-weight: bold;
+            font-family: "Raleway", sans-serif;
+        }
+        .box p{
+            width: 90%;
+            margin: 20px auto;
+            font-size: 20px;
+            font-family: "Raleway", sans-serif;
+        }
+        .btn{
+            display: flex;
+            margin: 0px 20px;
+            margin-bottom: 20px;
+        }
+        .btn div{
+            border: 2px solid black;
+            padding: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="media_grid.css">
+</head>
+<body>
+    <div class="main">
+       <div class="box" id="box1">
+        <div class="bgimg">Thubnail</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+             Commodi quidem, expedita amet illum iure quas officiis? 
+             Suscipit dolor sequi eum.</p>
+             <div class="btn">
+                <div class="btn1">View</div>
+                <div class="btn2">Edit</div>
+             </div>
+       </div>
+       <div class="box" id="box2">
+        <div class="bgimg">Thubnail</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+             Commodi quidem, expedita amet illum iure quas officiis? 
+             Suscipit dolor sequi eum.</p>
+             <div class="btn">
+                <div class="btn1">View</div>
+                <div class="btn2">Edit</div>
+             </div>
+       </div>
+       <div class="box" id="box3">
+        <div class="bgimg">Thubnail</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+             Commodi quidem, expedita amet illum iure quas officiis? 
+             Suscipit dolor sequi eum.</p>
+             <div class="btn">
+                <div class="btn1">View</div>
+                <div class="btn2">Edit</div>
+             </div>
+       </div>
+       <div class="box" id="box4">
+        <div class="bgimg">Thubnail</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+             Commodi quidem, expedita amet illum iure quas officiis? 
+             Suscipit dolor sequi eum.</p>
+             <div class="btn">
+                <div class="btn1">View</div>
+                <div class="btn2">Edit</div>
+             </div>
+       </div>
+       <div class="box" id="box5">
+        <div class="bgimg">Thubnail</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+             Commodi quidem, expedita amet illum iure quas officiis? 
+             Suscipit dolor sequi eum.</p>
+             <div class="btn">
+                <div class="btn1">View</div>
+                <div class="btn2">Edit</div>
+             </div>
+       </div>
+       <div class="box" id="box6">
+        <div class="bgimg">Thubnail</div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+             Commodi quidem, expedita amet illum iure quas officiis? 
+             Suscipit dolor sequi eum.</p>
+             <div class="btn">
+                <div class="btn1">View</div>
+                <div class="btn2">Edit</div>
+             </div>
+       </div>
+    </div>
+</body>
+</html>
