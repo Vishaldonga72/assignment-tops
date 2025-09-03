@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Booking Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #2f3657;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #090997;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Restaurant Booking</h2>
+    <form id="bookingForm">
+        <label for="bookingChoice">Choice of Booking</label>
+        <select id="bookingChoice" name="bookingChoice" onchange="toggleBookingOptions()">
+            <option value="">Select Booking Type</option>
+            <option value="fullDay">Full day booking</option>
+            <option value="halfDay">Half day booking</option>
+            <option value="hourly">Hourly booking</option>
+        </select>
+
+        <label for="userName">Name</label>
+        <input type="text" id="userName" name="userName" placeholder="Enter your name" required>
+
+        <label for="mobileNumber">Mobile Number</label>
+        <input type="text" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="noOfPerson">No of persons</label>
+        <input type="number" id="noOfPerson" name="noOfPerson" placeholder="No of persons" required>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+
+        <!-- Slot for Half day booking -->
+        <div id="slotDiv" class="hidden">
+            <label for="slot">Slot</label>
+            <select id="slot" name="slot">
+                <option value="">Select Slot</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+            </select>
+        </div>
+
+        <!-- Time for Hourly booking -->
+        <div id="timeDiv" class="hidden">
+            <label for="time">Time</label>
+            <input type="time" id="time" name="time">
+        </div>
+
+        <button type="submit">Submit Booking</button>
+    </form>
+</div>
+
+<script>
+    // Function to toggle form options based on booking choice
+    function toggleBookingOptions() {
+        const bookingChoice = document.getElementById("bookingChoice").value;
+        const slotDiv = document.getElementById("slotDiv");
+        const timeDiv = document.getElementById("timeDiv");
+        const dateInput = document.getElementById("date");
+
+        // Reset all fields when booking choice changes
+        slotDiv.classList.add("hidden");
+        timeDiv.classList.add("hidden");
+        
+ // Show options based on the selected booking choice
+        if (bookingChoice === "fullDay") {
+            dateInput.disabled = false;
+        } else if (bookingChoice === "halfDay") {
+            dateInput.disabled = false;
+            slotDiv.classList.remove("hidden");
+        } else if (bookingChoice === "hourly") {
+            dateInput.disabled = false;
+            timeDiv.classList.remove("hidden");
+        } else {
+            dateInput.disabled = true;
+        }
+    }
+
+    // Set minimum date to today's date
+    function setMinDate() {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const yyyy = today.getFullYear();
+        const minDate = yyyy + '-' + mm + '-' + dd; // Format as YYYY-MM-DD
+        document.getElementById("date").setAttribute("min", minDate); // Set min date to today
+    }
+
+    // Call setMinDate when the page loads
+    window.onload = setMinDate;
+
+    // Handle form submission with validation
+    document.getElementById("bookingForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let errors = []; // Store error messages
+
+        // Get form values
+        const userName = document.getElementById("userName").value;
+        const mobileNumber = document.getElementById("mobileNumber").value;
+        const email = document.getElementById("email").value;
+        const noOfPerson = document.getElementById("noOfPerson").value;
+        const date = document.getElementById("date").value;
+        const bookingChoice = document.getElementById("bookingChoice").value;
+        const slot = document.getElementById("slot").value;
+        const time = document.getElementById("time").value;
+
+        // Validation checks
+        if (!userName) errors.push("Please enter your name.");
+        if (!mobileNumber) errors.push("Please enter your mobile number.");
+        if (!email) errors.push("Please enter your email.");
+        if (!noOfPerson) errors.push("Please enter the number of persons.");
+        if (!date) errors.push("Please select a date.");
+        if (!bookingChoice) errors.push("Please select a booking choice.");
+        if (bookingChoice === "halfDay" && !slot) errors.push("Please select a slot for half day booking.");
+        if (bookingChoice === "hourly" && !time) errors.push("Please select a time for hourly booking.");
+
+        // Mobile number validation: check if it has exactly 10 digits
+        if (mobileNumber) {
+            const mobilePattern = /^[0-9]{10}$/; // Regex for exactly 10 digits
+            if (!mobilePattern.test(mobileNumber)) {
+                errors.push("Please Enter Valid Mobile Number...!");
+            }
+        }
+
+            // Email validation using regex
+            if (email) {
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Regex for email format
+            if (!emailPattern.test(email)) {
+                errors.push("Please enter a valid email address.");
+            }
+        }
+
+        // If there are any errors, show them in a popup
+        if (errors.length > 0) {
+            alert(errors.join("\n")); // Display all errors in one popup
+        } else {
+            // If no errors, proceed with form submission
+            alert("Booking Submitted Successfully!");
+
+            // Reset form after submission
+            document.getElementById("bookingForm").reset();
+            toggleBookingOptions();  // Reset form visibility
+        }
+    });
+</script>
+
+</body>
+</html>
